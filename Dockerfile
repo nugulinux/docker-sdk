@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y software-properties-common ca-certifica
     libnugu-plugins-default \
     libnugu-examples \
     mdbus2 \
+    nugud \
     pulseaudio \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -37,7 +38,7 @@ RUN git clone https://github.com/webispy/dbus-daemon-proxy.git ~/dproxy \
 EXPOSE 8080
 
 ENV SHELL=/bin/bash
-COPY startup.sh /usr/bin/
+COPY startup.sh start-daemon.sh /usr/bin/
 ENTRYPOINT ["/usr/bin/startup.sh"]
 CMD ["/bin/bash"]
 
