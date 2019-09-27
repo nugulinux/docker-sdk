@@ -12,9 +12,12 @@ RUN apt-get update && apt-get install -y software-properties-common ca-certifica
     && dpkg-reconfigure locales \
     && add-apt-repository -y ppa:nugulinux/sdk \
     && apt-get install -y --no-install-recommends \
+    build-essential \
     dbus \
+    git \
     gstreamer1.0-pulseaudio \
     gstreamer1.0-tools \
+    libdbus-glib-1-dev \
     libnugu \
     libnugu-plugins-default \
     libnugu-examples \
@@ -22,6 +25,14 @@ RUN apt-get update && apt-get install -y software-properties-common ca-certifica
     pulseaudio \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+# dbus-daemon-proxy tool
+RUN git clone https://github.com/webispy/dbus-daemon-proxy.git ~/dproxy \
+    && cd ~/dproxy \
+    && make \
+    && cp dbus-daemon-proxy /usr/bin/ \
+    && cd \
+    && rm -rf ~/dproxy
 
 EXPOSE 8080
 
